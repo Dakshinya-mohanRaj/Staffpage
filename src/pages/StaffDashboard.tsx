@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
 
-const getSectionPercent = (present: number, total: number) =>
-  Math.round((present / total) * 100);
 
 const getYearPercent = (
   sections: Record<string, { present: number; total: number }>
@@ -16,24 +14,6 @@ const getYearPercent = (
   );
   return Math.round((totalPresent / total) * 100);
 };
-const yearData = [
-  {
-    year: "I st Year",
-    sections: ["Sec A", "Sec B", "Sec C"],
-  },
-  {
-    year: "II nd Year",
-    sections: ["Sec A", "Sec B", "Sec C", "Sec D"],
-  },
-  {
-    year: "III rd Year",
-    sections: ["Sec A", "Sec B"],
-  },
-  {
-    year: "IV th Year",
-    sections: ["Sec A", "Sec B"],
-  },
-];
 const attendanceData = {
   "I st Year": {
     "Sec A": { present: 42, total: 50 },
