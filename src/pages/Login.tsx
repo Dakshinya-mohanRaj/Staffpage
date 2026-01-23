@@ -10,7 +10,7 @@ const Login = () => {
 
   // ✅ Disable scroll only for Login page
   useEffect(() => {
-    document.body.style.margin = "0";      // ✅ removes white edges
+    document.body.style.margin = "0";
     document.body.style.padding = "0";
     document.body.style.overflow = "hidden";
 
@@ -20,11 +20,21 @@ const Login = () => {
   }, []);
 
   const handleLogin = () => {
-    if (email && password) {
-      navigate("/dashboard");
-    } else {
+    // 🔐 Only ksrce.ac.in email allowed
+    const collegeEmailPattern = /^[a-zA-Z0-9._%+-]+@ksrce\.ac\.in$/;
+
+    if (!email || !password) {
       alert("Please enter email and password");
+      return;
     }
+
+    if (!collegeEmailPattern.test(email)) {
+      alert("Please use your college email ID (example@ksrce.ac.in)");
+      return;
+    }
+
+    // ✅ Login success
+    navigate("/dashboard");
   };
 
   return (
@@ -34,8 +44,8 @@ const Login = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        height: "100vh",                 // ✅ full height
-        width: "100vw",                  // ✅ full width
+        height: "100vh",
+        width: "100vw",
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
@@ -72,6 +82,7 @@ const Login = () => {
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          placeholder="example@ksrce.ac.in"
           style={{
             padding: "10px",
             borderRadius: "10px",
