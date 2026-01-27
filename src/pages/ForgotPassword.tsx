@@ -20,11 +20,18 @@ const ForgotPassword = () => {
     };
   }, []);
 
+  /* ✅ EMAIL VALIDATION */
   const handleEmailSubmit = () => {
     if (!email) {
       alert("Please enter email");
       return;
     }
+
+    if (!email.endsWith("@ksrce.ac.in")) {
+      alert("Invalid email. Use your official ksrce.ac.in email");
+      return;
+    }
+
     alert("OTP sent to your email (demo)");
   };
 
@@ -101,17 +108,31 @@ const ForgotPassword = () => {
         }}
       >
         {/* EMAIL */}
-        <label style={{ marginBottom: "1rem" }}>Email :</label>
+        <label style={{ marginBottom: "0.5rem" }}>Email :</label>
+
         <input
+          type="email"
+          placeholder="example@ksrce.ac.in"
           onChange={(e) => setEmail(e.target.value)}
           style={{
             padding: "10px",
             borderRadius: "10px",
             border: "none",
             outline: "none",
-            marginBottom: "0.8rem",
+            marginBottom: "4px",
           }}
         />
+
+        {/* EMAIL HINT */}
+        <span
+          style={{
+            fontSize: "12px",
+            color: "#e0e0e0",
+            marginBottom: "1rem",
+          }}
+        >
+          Use your official email (example: staff@ksrce.ac.in)
+        </span>
 
         {/* SUBMIT */}
         <button
@@ -166,6 +187,7 @@ const ForgotPassword = () => {
           Verify
         </button>
 
+        {/* NEW PASSWORD */}
         <label style={{ marginBottom: "1rem" }}>New Password :</label>
         <input
           type="password"
