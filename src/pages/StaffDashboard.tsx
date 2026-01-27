@@ -59,7 +59,7 @@ const Attendance = () => {
             </div>
           </div>
 
-          <button className="logout" onClick={() => navigate("/login")}>
+          <button className="logout" onClick={() => navigate("/")}>
             ⏻ Sign out
           </button>
         </aside>
@@ -195,9 +195,26 @@ const Attendance = () => {
           border-radius: 0 20px 20px 0;
         }
 
+  position: relative;
+  z-index: 100;   /* 🔥 ADD THIS */
+}
+
+.main {
+  flex: 1;
+  padding: 30px 50px;
+  overflow-y: auto;
+
+  position: relative;
+  z-index: 1;     /* 🔥 ADD THIS */
+}
+
+.nav-item {
+  pointer-events: auto; /* 🔥 ADD THIS */
+}
+
         .nav-item {
           background: rgba(255,255,255,0.15);
-          padding: 14px 16px;
+          padding: 15px 16px;
           margin-bottom: 14px;
           border-radius: 12px;
           color: #fff;
@@ -209,18 +226,16 @@ const Attendance = () => {
           background: rgba(255,255,255,0.35);
           transform: translateX(4px);
         }
-          
-
-
+         
+        }
         .logout {
-          background: #d73a49;
+          background: #e23b44;
           border: none;
-          color: white;
           padding: 12px;
-          border-radius: 10px;
+          border-radius: 14px;
+          color: white;
           cursor: pointer;
         }
-
         .main {
           flex: 1;
           padding: 30px 50px;
@@ -346,27 +361,30 @@ const Attendance = () => {
           display: flex;
           flex-direction: column;
           align-items: center;
-          margin-bottom: 25px;
+          margin-bottom: 18px;
           position: relative;
         }
 
-        .profile-icon {
-          width: 50px;
-          height: 50px;
-          background: white;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 24px;
-          margin-bottom: 6px;
-          cursor: pointer;
-        }
+       .profile-icon {
+  width: 50px;
+  height: 50px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 4px; /* 🔥 reduced gap */
+  cursor: pointer;
+}
+
 
         .profile-name {
-          color: #fff;
-          font-size: 14px;
-        }
+  color: #fff;
+  font-size: 14px;
+  margin: 0;          /* 🔥 THIS FIXES GAP */
+  line-height: 1.2;
+}
 
         .profile-popup {
           background: #ffffff;
@@ -383,6 +401,30 @@ const Attendance = () => {
         .profile-popup p {
           margin: 6px 0;
         }
+          .logout {
+  background: linear-gradient(135deg, #e23b44, #c62828);
+  border: none;
+  padding: 12px 16px;
+  border-radius: 14px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(226, 59, 68, 0.35);
+}
+
+.logout:hover {
+  background: linear-gradient(135deg, #ff5252, #d32f2f);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(226, 59, 68, 0.5);
+}
+
+.logout:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(226, 59, 68, 0.4);
+}
+
       `}</style>
     </>
   );
