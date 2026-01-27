@@ -86,23 +86,22 @@ const yearSections: Record<string, string[]> = {
   "IV th Year": ["A", "B"],
 };
 
-type Timetable = Record<Day, string[]>;
+type TimetableType = Record<Day, string[]>;
 
-const createEmptyTimetable = (): Timetable =>
+const createEmptyTimetable = (): TimetableType =>
   days.reduce((acc, day) => {
     acc[day] = Array(periods.length).fill("");
     return acc;
-  }, {} as Timetable);
+  }, {} as TimetableType);
 
 const Timetable = () => {
   const navigate = useNavigate();
 
   const [year, setYear] = useState("");
   const [section, setSection] = useState("");
-  const [timetable, setTimetable] = useState<Timetable>(
+  const [timetable, setTimetable] = useState<TimetableType>(
     createEmptyTimetable()
   );
-
   const [showProfile, setShowProfile] = useState(false);
 
   const editable = year && section;
@@ -151,6 +150,8 @@ const Timetable = () => {
           justify-content: space-between;
           border-radius: 0 20px 20px 0;
           color: white;
+          position: relative;
+          z-index: 1000;
         }
 
         /* PROFILE */
@@ -159,7 +160,7 @@ const Timetable = () => {
           display: flex;
           flex-direction: column;
           align-items: center;
-          margin-bottom: 40px;
+          margin-bottom: 30px;
         }
 
         .profile-icon {
@@ -201,16 +202,14 @@ const Timetable = () => {
 
         /* NAV */
         .nav-wrapper {
+          margin-top: 20px;
           transition: margin-top 0.12s ease-out;
         }
 
-        .nav-wrapper.nav-shift {
-          margin-top: 140px; /* 🔥 HOME full-aa keela pogum */
-        }
-
+       
         .nav-item {
           background: rgba(255,255,255,0.18);
-          padding: 14px 16px;
+          padding: 16px 16px;
           margin-bottom: 14px;
           border-radius: 14px;
           cursor: pointer;
@@ -277,13 +276,14 @@ const Timetable = () => {
         }
 
         .timetable-card {
-          background: #eef6f3;
-          padding: 18px;
-          border-radius: 12px;
+          background: rgba(189, 205, 213, 0.31);
+          padding: 40px;
+          border-radius: 14px;
           box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         table {
+          width: 100%;
           border-collapse: collapse;
           table-layout: fixed;
           background: white;
@@ -291,31 +291,55 @@ const Timetable = () => {
 
         th, td {
           border: 1px solid #9aa7a3;
-          padding: 6px;
+          padding: 14px 10px;
           text-align: center;
-          font-size: 14px;
+          font-size: 16px;
         }
 
         th {
-          background: #c7e6ea;
-          font-size: 13px;
+          background: rgb(170, 226, 234);
+          font-size: 15px;
         }
 
         td.day {
           font-weight: bold;
-          background: #e9f2ef;
-          min-width: 90px;
+          background: rgba(156, 178, 171, 0.45);
+          min-width: 130px;
         }
 
         select.period {
           width: 100%;
-          height: 30px;
-          font-size: 13px;
+          height: 42px;
+          font-size: 15px;
+          padding: 6px;
         }
+          .logout {
+  background: linear-gradient(135deg, #e23b44, #c62828);
+  border: none;
+  padding: 12px 16px;
+  border-radius: 14px;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(226, 59, 68, 0.35);
+}
+
+.logout:hover {
+  background: linear-gradient(135deg, #ff5252, #d32f2f);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(226, 59, 68, 0.5);
+}
+
+.logout:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(226, 59, 68, 0.4);
+}
+
       `}</style>
 
       <div className="page">
-        {/* SIDEBAR */}
         <aside className="sidebar">
           <div>
             <div className="profile">
@@ -341,9 +365,22 @@ const Timetable = () => {
               <div className="nav-item" onClick={() => navigate("/dashboard")}>
                 🏠 Home
               </div>
-              <div className="nav-item active">🕒 Time table</div>
-              <div className="nav-item">🎓 Student details</div>
-              <div className="nav-item">✅ Attendance</div>
+
+              <div className="nav-item active">📅 Time table</div>
+
+              <div
+                className="nav-item"
+                onClick={() => navigate("/students")}
+              >
+                👨‍🎓 Student details
+              </div>
+
+              <div
+                className="nav-item"
+                onClick={() => navigate("/Attendance")}
+              >
+                ✅ Attendance
+              </div>
             </div>
           </div>
 
@@ -352,7 +389,6 @@ const Timetable = () => {
           </button>
         </aside>
 
-        {/* MAIN */}
         <main className="main">
           <div className="top">
             <h2>Time Table</h2>
